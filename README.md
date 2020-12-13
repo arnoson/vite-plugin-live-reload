@@ -1,4 +1,4 @@
-# vite-live-reload
+# vite-plugin-live-reload
 A *very* simple live reloading plugin for [vite](https://github.com/vitejs/vite).
 
 # Example
