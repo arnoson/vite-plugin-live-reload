@@ -7,7 +7,7 @@ import chalk from 'chalk'
  * with a traditional backend and want to trigger page reloads when you are
  * changing for example php files.
  */
-export default (paths, { log = true } = {}) => ({
+const plugin = (paths, { log = true } = {}) => ({
   configureServer: [
     ({ watcher }) => {
       const reload = (path, action) => {
@@ -26,3 +26,5 @@ export default (paths, { log = true } = {}) => ({
     }
   ]
 })
+
+export default plugin
