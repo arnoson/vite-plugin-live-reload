@@ -1,14 +1,14 @@
 {
-  "name": "vite-live-reload",
+  "name": "vite-plugin-live-reload",
   "version": "0.1.0",
   "description": "A *very* simple live reloading plugin for vite.",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rollup -c"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/arnoson/vite-live-reload.git"
+    "url": "git+https://github.com/arnoson/vite-plugin-live-reload.git"
   },
   "keywords": [
     "vite",
@@ -18,7 +18,16 @@
   "author": "arnoson",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/arnoson/vite-live-reload/issues"
+    "url": "https://github.com/arnoson/vite-plugin-live-reload/issues"
   },
-  "homepage": "https://github.com/arnoson/vite-live-reload#readme"
+  "homepage": "https://github.com/arnoson/vite-plugin-live-reload#readme",
+  "peerDependencies": {
+    "chokidar": "*",
+    "chalk": "*"
+  },
+  "devDependencies": {
+    "esbuild": "^0.8.22",
+    "rollup": "^2.34.2",
+    "rollup-plugin-esbuild": "^2.6.1"
+  }
 }
