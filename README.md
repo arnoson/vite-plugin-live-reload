@@ -10,7 +10,9 @@ import viteLiveReload from 'vite-live-reload'
 export default {
   // ...
   plugins: [
-    liveReload('public/site/(templates|snippets|controllers|models)/**/*.php'),
+    viteLiveReload(
+      'public/site/(templates|snippets|controllers|models)/**/*.php'
+    ),
   ]
 }
 ```
