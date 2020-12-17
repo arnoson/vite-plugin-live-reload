@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "description": "A *very* simple live reloading plugin for vite.",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
+    "dev": "rollup -c --watch",
     "build": "rollup -c"
   },
   "repository": {
@@ -28,6 +30,10 @@
   "devDependencies": {
     "esbuild": "^0.8.22",
     "rollup": "^2.34.2",
-    "rollup-plugin-esbuild": "^2.6.1"
-  }
+    "rollup-plugin-dts": "^2.0.1",
+    "rollup-plugin-esbuild": "^2.6.1",
+    "typescript": "^4.1.3",
+    "vite": "^1.0.0-rc.13"
+  },
+  "dependencies": {}
 }

@@ -1,0 +1,11 @@
+{
+  "include": ["src"],
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "lib": ["es2018"],
+    "moduleResolution": "node",
+    "noUnusedLocals": false,
+    "strict": true,
+    "target": "esnext"
+  }
+}

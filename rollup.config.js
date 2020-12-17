@@ -1,12 +1,20 @@
 import esbuild from 'rollup-plugin-esbuild'
+import dts from 'rollup-plugin-dts'
 
-export default {
-  input: 'src/index.js',
+const bundle = format => ({
+  input: 'src/index.ts',
   output: {
-    dir: 'dist',
-    format: 'cjs',
-    exports: 'named'
+    file: `dist/index.${format == 'dts' ? 'd.ts' : 'js'}`,
+    format: format == 'dts' ? 'esm' : 'cjs',
+    exports: 'named',
+    sourcemap: format != 'dts',
+    sourcemapExcludeSources: true,
   },
-  plugins: [esbuild({ target: 'es2018' })],
+  plugins: format == 'dts' ? [dts()] : [esbuild({ target: 'es2018' })],
   external: id => !/^[./]/.test(id),
-}
+})
+
+export default [
+  bundle('cjs'),
+  bundle('dts'),
+]
