@@ -23,17 +23,17 @@
     "url": "https://github.com/arnoson/vite-plugin-live-reload/issues"
   },
   "homepage": "https://github.com/arnoson/vite-plugin-live-reload#readme",
-  "peerDependencies": {
-    "chokidar": "*",
-    "chalk": "*"
-  },
   "devDependencies": {
-    "esbuild": "^0.8.22",
-    "rollup": "^2.34.2",
+    "@types/node": "^14.14.20",
+    "esbuild": "^0.8.31",
+    "rollup": "^2.36.1",
     "rollup-plugin-dts": "^2.0.1",
     "rollup-plugin-esbuild": "^2.6.1",
     "typescript": "^4.1.3",
-    "vite": "^1.0.0-rc.13"
+    "vite": "^2.0.0-beta.27"
   },
-  "dependencies": {}
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "chokidar": "^3.5.0"
+  }
 }
