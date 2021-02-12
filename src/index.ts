@@ -1,6 +1,12 @@
 import { Plugin, ViteDevServer } from 'vite'
 import chokidar, { WatchOptions } from 'chokidar'
 import chalk from 'chalk'
+import path from 'path'
+
+// https://github.com/vitejs/vite/blob/03b323d39cafe2baabef74e6051a9640add82590/packages/vite/src/node/server/hmr.ts
+function getShortName(file: string, root: string) {
+  return file.startsWith(root + '/') ? path.posix.relative(root, file) : file
+}
 
 /** Plugin configuration */
 interface Config extends WatchOptions {
@@ -19,16 +25,20 @@ export default (
 ): Plugin => ({
   name: 'vite-plugin-live-reload',
 
-  configureServer({ ws, config: { root } }: ViteDevServer) {
-    const reload = (path: string, action: string) => {
+  configureServer({ ws, config: { root, logger } }: ViteDevServer) {
+    const reload = (path: string) => {
       ws.send({ type: 'full-reload', path })
       if (config.log ?? true) {
-        console.log(chalk.green(`[vite-live-reload] `) + `${path} ${action}.`)
+        logger.info(
+          chalk.green(`page reload `) + chalk.dim(getShortName(path, root)),
+          { clear: true, timestamp: true }
+        )
       }
     }
+
     chokidar
       .watch(paths, { cwd: root, ignoreInitial: true, ...config })
-      .on('add', path => reload(path, 'added'))
-      .on('change', path => reload(path, 'changed'))
-    }
+      .on('add', reload)
+      .on('change', reload)
+  }
 })
