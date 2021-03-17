@@ -11,6 +11,14 @@ function getShortName(file: string, root: string) {
 /** Plugin configuration */
 interface Config extends WatchOptions {
   log?: boolean
+
+  /**
+    * File paths will be resolved against this directory.
+    *
+    * @default ViteDevServer.root
+    * @internal
+    */
+  root?: string
 }
 
 /**
@@ -25,7 +33,9 @@ export default (
 ): Plugin => ({
   name: 'vite-plugin-live-reload',
 
-  configureServer({ ws, config: { root, logger } }: ViteDevServer) {
+  configureServer({ ws, config: { root: viteRoot, logger } }: ViteDevServer) {
+    const root = config.root || viteRoot
+
     const reload = (path: string) => {
       ws.send({ type: 'full-reload', path })
       if (config.log ?? true) {
