@@ -10,6 +10,12 @@ function getShortName(file: string, root: string) {
 
 /** Plugin configuration */
 interface Config extends WatchOptions {
+  /**
+   * Whether the page should be reloaded regardless of which file is modified.
+   * @default false
+   */
+  alwaysReload?: boolean
+
   log?: boolean
 
   /**
@@ -37,7 +43,7 @@ export default (
     const root = config.root || viteRoot
 
     const reload = (path: string) => {
-      ws.send({ type: 'full-reload', path })
+      ws.send({ type: 'full-reload', path: config.alwaysReload ? '*' : path })
       if (config.log ?? true) {
         logger.info(
           chalk.green(`page reload `) + chalk.dim(getShortName(path, root)),
