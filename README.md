@@ -1,5 +1,5 @@
 # vite-plugin-live-reload
-A *very* simple live reloading plugin for [vite](https://github.com/vitejs/vite).
+A simple live reloading plugin for [vite](https://github.com/vitejs/vite).
 
 ## Example
 I use this configuration when working with [Kirby CMS](https://getkirby.com/), but it works great with any backend!

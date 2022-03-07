@@ -1,7 +1,7 @@
 {
   "name": "vite-plugin-live-reload",
   "version": "2.1.0",
-  "description": "A *very* simple live reloading plugin for vite.",
+  "description": "A simple live reloading plugin for vite.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
