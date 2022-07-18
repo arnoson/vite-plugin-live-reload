@@ -1,6 +1,6 @@
 import { Plugin, ViteDevServer } from 'vite'
 import chokidar, { WatchOptions } from 'chokidar'
-import chalk from 'chalk'
+import colors from 'picocolors'
 import path from 'path'
 
 // https://github.com/vitejs/vite/blob/03b323d39cafe2baabef74e6051a9640add82590/packages/vite/src/node/server/hmr.ts
@@ -46,7 +46,7 @@ export default (
       ws.send({ type: 'full-reload', path: config.alwaysReload ? '*' : path })
       if (config.log ?? true) {
         logger.info(
-          chalk.green(`page reload `) + chalk.dim(getShortName(path, root)),
+          colors.green(`page reload `) + colors.dim(getShortName(path, root)),
           { clear: true, timestamp: true }
         )
       }
