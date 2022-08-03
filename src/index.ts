@@ -9,7 +9,7 @@ function getShortName(file: string, root: string) {
 }
 
 /** Plugin configuration */
-interface Config extends WatchOptions {
+export interface Config extends WatchOptions {
   /**
    * Whether the page should be reloaded regardless of which file is modified.
    * @default false
