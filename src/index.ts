@@ -16,6 +16,10 @@ interface Config extends WatchOptions {
    */
   alwaysReload?: boolean
 
+  /**
+   * Whether to log when a file change triggered a live reload
+   * @default true
+   */
   log?: boolean
 
   /**
