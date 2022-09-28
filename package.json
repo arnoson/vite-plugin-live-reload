@@ -1,11 +1,13 @@
 {
   "name": "vite-plugin-live-reload",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "A simple live reloading plugin for vite.",
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "exports": {
     ".": {
       "import": "./dist/index.js",
