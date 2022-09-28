@@ -37,7 +37,7 @@ export interface Config extends WatchOptions {
  * with a traditional backend and want to trigger page reloads when you are
  * changing for example php files.
  */
-export default (
+export const liveReload = (
   paths: string | readonly string[],
   config: Config = {}
 ): Plugin => ({
@@ -62,3 +62,5 @@ export default (
       .on('change', reload)
   }
 })
+
+export default liveReload
