@@ -25,3 +25,7 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
       - run: npm publish
+
+      - run: npx changelogithub
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
