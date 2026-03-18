@@ -3,7 +3,7 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "lib": ["es2018"],
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "noUnusedLocals": false,
     "strict": true,
     "target": "esnext",
