@@ -1,7 +1,9 @@
 import { Plugin, ViteDevServer } from 'vite'
-import chokidar, { WatchOptions } from 'chokidar'
+import picomatch from 'picomatch'
 import colors from 'picocolors'
 import path from 'path'
+
+const toPosix = (file: string) => file.split(path.sep).join('/')
 
 // https://github.com/vitejs/vite/blob/03b323d39cafe2baabef74e6051a9640add82590/packages/vite/src/node/server/hmr.ts
 function getShortName(file: string, root: string) {
@@ -9,7 +11,7 @@ function getShortName(file: string, root: string) {
 }
 
 /** Plugin configuration */
-export interface Config extends WatchOptions {
+export interface Config {
   /**
    * Whether the page should be reloaded regardless of which file is modified.
    * @default false
@@ -43,8 +45,29 @@ export const liveReload = (
 ): Plugin => ({
   name: 'vite-plugin-live-reload',
 
-  configureServer({ ws, config: { root: viteRoot, logger } }: ViteDevServer) {
+  configureServer({
+    ws,
+    watcher,
+    config: { root: viteRoot, logger }
+  }: ViteDevServer) {
     const root = config.root || viteRoot
+
+    const patterns = [paths].flat().map((pattern) => {
+      const absolute = toPosix(path.resolve(root, pattern))
+      const { base, isGlob } = picomatch.scan(absolute)
+      // Plain paths match the file itself or anything inside a directory.
+      const isMatch = isGlob
+        ? picomatch(absolute, { dot: true })
+        : (file: string) => file === base || file.startsWith(base + '/')
+      return { base, isMatch }
+    })
+
+    watcher.add(patterns.map(({ base }) => base))
+
+    const onFileEvent = (file: string) => {
+      const normalized = toPosix(file)
+      if (patterns.some(({ isMatch }) => isMatch(normalized))) reload(file)
+    }
 
     const reload = (path: string) => {
       ws.send({ type: 'full-reload', path: config.alwaysReload ? '*' : path })
@@ -56,10 +79,7 @@ export const liveReload = (
       }
     }
 
-    chokidar
-      .watch(paths, { cwd: root, ignoreInitial: true, ...config })
-      .on('add', reload)
-      .on('change', reload)
+    watcher.on('add', onFileEvent).on('change', onFileEvent)
   }
 })
 
